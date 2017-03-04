@@ -1,0 +1,36 @@
+# Copyright (c) 2016 Project Vogue. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+component("public") {
+  output_name = "aoba_parser"
+  sources = [
+    "parse.cc",
+    "parser_context.cc",
+    "parser_context_builder.cc",
+    "parser_options.cc",
+    "parser_options_builder.cc",
+  ]
+
+  public_deps = [
+    ":headers",
+    "//aoba/parser",
+  ]
+
+  configs += [ "//aoba/parser:parser_implementation" ]
+}
+
+source_set("headers") {
+  sources = [
+    "parse.h",
+    "parser_context.h",
+    "parser_context_builder.h",
+    "parser_export.h",
+    "parser_options.h",
+    "parser_options_builder.h",
+  ]
+  public_deps = [
+    "//aoba/ast",
+    "//base",
+  ]
+}

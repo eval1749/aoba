@@ -1,0 +1,34 @@
+# Copyright (c) 2016 Project Vogue. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_set("type") {
+  sources = [
+    "type_error_codes.h",
+    "type_lexer.cc",
+    "type_lexer.h",
+    "type_parser.cc",
+    "type_parser.h",
+  ]
+  deps = [
+    "//aoba/ast",
+    "//aoba/base",
+    "//aoba/parser/public:headers",
+    "//aoba/parser/utils",
+  ]
+
+  configs += [ "//aoba/parser:parser_implementation" ]
+}
+
+source_set("test_files") {
+  testonly = true
+  sources = [
+    "type_lexer_test.cc",
+    "type_parser_test.cc",
+  ]
+  deps = [
+    ":type",
+    "//aoba/parser/utils",
+    "//aoba/testing",
+  ]
+}

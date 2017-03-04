@@ -1,0 +1,32 @@
+# Copyright (c) 2017 Project Vogue. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_set("regexp") {
+  sources = [
+    "regexp_error_codes.h",
+    "regexp_lexer.cc",
+    "regexp_lexer.h",
+    "regexp_parser.cc",
+    "regexp_parser.h",
+  ]
+  deps = [
+    "//aoba/base",
+    "//aoba/parser/utils",
+  ]
+
+  configs += [ "//aoba/parser:parser_implementation" ]
+}
+
+source_set("test_files") {
+  testonly = true
+  sources = [
+    "regexp_lexer_test.cc",
+    "regexp_parser_test.cc",
+  ]
+  deps = [
+    ":regexp",
+    "//aoba/testing",
+    "//testing/gtest",
+  ]
+}

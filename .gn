@@ -1,0 +1,35 @@
+# This file is used by the GN meta build system to find the root of the source
+# tree and to set startup options. For documentation on the values set in this
+# file, run "gn help dotfile" at the command line.
+
+# The location of the build configuration file.
+buildconfig = "//build/config/BUILDCONFIG.gn"
+
+# The secondary source root is a parallel directory tree where
+# GN build files are placed when they can not be placed directly
+# in the source tree, e.g. for third party source trees.
+secondary_source = "//build/secondary/"
+
+# These are the targets to check headers for by default. The files in targets
+# matching these patterns (see "gn help label_pattern" for format) will have
+# their includes checked for proper dependencies when you run either
+# "gn check" or "gn gen --check".
+check_targets = [
+  "//aoba/*",
+  "//base/*",
+]
+
+default_args = {
+#  v8_use_external_startup_data = false
+
+  # V8 extras
+  # Adding V8 extras files requires API owners review
+  # Be sure to synchronize with build/common.gypi
+
+#  v8_extra_library_files = []
+#  v8_experimental_extra_library_files = []
+
+#  v8_enable_inspector = false
+#  v8_enable_gdbjit = false
+#  v8_imminent_deprecation_warnings = false
+}

@@ -1,0 +1,21 @@
+# Copyright (c) 2016 Project Vogue. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_set("utils") {
+  sources = [
+    "bracket_tracker.cc",
+    "bracket_tracker.h",
+    "character_reader.cc",
+    "character_reader.h",
+    "lexer_utils.cc",
+    "lexer_utils.h",
+  ]
+  public_deps = [
+    "//aoba/ast",
+    "//aoba/base",
+    "//aoba/parser/public:headers",
+  ]
+
+  configs += [ "//aoba/parser:parser_implementation" ]
+}

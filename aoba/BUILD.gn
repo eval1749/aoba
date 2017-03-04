@@ -1,0 +1,23 @@
+# Copyright (c) 2016 Project Vogue. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//testing/test.gni")
+
+group("aoba") {
+  deps = [
+    "//aoba/checker",
+  ]
+}
+
+test("aoba_tests") {
+  output_name = "aoba_tests"
+  deps = [
+    "//base/test:run_all_unittests",
+    "//aoba/analyzer:test_files",
+    "//aoba/base:test_files",
+    "//aoba/ir:test_files",
+    "//aoba/parser:test_files",
+    "//testing/gtest",
+  ]
+}

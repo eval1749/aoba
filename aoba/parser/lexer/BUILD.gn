@@ -1,0 +1,31 @@
+# Copyright (c) 2016 Project Vogue. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_set("lexer") {
+  sources = [
+    "lexer.cc",
+    "lexer.h",
+  ]
+  public_deps = [
+    "//aoba/ast",
+    "//aoba/base",
+    "//aoba/parser/jsdoc",
+    "//aoba/parser/public:headers",
+    "//aoba/parser/utils",
+  ]
+
+  configs += [ "//aoba/parser:parser_implementation" ]
+}
+
+source_set("test_files") {
+  testonly = true
+  sources = [
+    "lexer_test.cc",
+  ]
+  deps = [
+    ":lexer",
+    "//aoba/testing",
+    "//testing/gtest",
+  ]
+}
