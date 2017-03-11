@@ -5,16 +5,16 @@
 vars = {
   'chromium_git': 'https://chromium.googlesource.com',
 
-  'base_revision': '8fe126945cb9fe557d679362b4e228324efa8a2b',
-  'build_revision': '2d722d1684b43ee840d499c818f012a18942a349',
+  'base_revision': '052e3e949ac291e7e02f175964bacd687b59b8ba',
+  'build_revision': 'cc228aba0c2511ca3558b1675ab588808738f00d',
   'buildtools_revision': 'b3771b1935ea74c388b6fb1750e83f5d83b39dec',
-  'ced_revision': '368a9cc09ad868a3d28f0b5ad4a733f263c46409',
+  'ced_revision': 'e21eb6aed10b9f6e2727f136c52420033214d458',
   'gmock_revision': '0421b6f358139f02e102c9c332ce19a33faf75be', # from svn revision 566
   'gtest_revision': '6f8a66431cb592dad629028a50b3dd418a408c87',
   'gyp_revision': 'e7079f0e0e14108ab0dba58728ff219637458563',
   'icu_revision': '450be73c9ee8ae29d43d4fdc82febb2a5f62bfb5',
   'modp_b64_revision': '28e3fbba4cb4ec3ffd85b53d0a3904525d08f5a6',
-  'testing_revision': 'a4984ec2b072cebb77259815511f85cfcfec8a4a',
+  'testing_revision': '90e54f215063904de88d299c52fa76c06f49864d',
   'zlib_revision': '13dc246a58e4b72104d35f9b1809af95221ebda7',
 }
 
