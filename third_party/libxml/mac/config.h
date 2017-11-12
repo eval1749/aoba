@@ -29,7 +29,7 @@
 #define HAVE_DLFCN_H 1
 
 /* Have dlopen based dso */
-#define HAVE_DLOPEN /**/
+/* #undef HAVE_DLOPEN */
 
 /* Define to 1 if you have the <dl.h> header file. */
 /* #undef HAVE_DL_H */
@@ -98,7 +98,7 @@
 /* #undef HAVE_LIBREADLINE */
 
 /* Have compression library */
-#define HAVE_LIBZ 1
+/* #undef HAVE_LIBZ */
 
 /* Define to 1 if you have the <limits.h> header file. */
 #define HAVE_LIMITS_H 1
@@ -264,7 +264,7 @@
 #define HAVE_VSPRINTF 1
 
 /* Define to 1 if you have the <zlib.h> header file. */
-#define HAVE_ZLIB_H 1
+/* #undef HAVE_ZLIB_H */
 
 /* Define to 1 if you have the `_stat' function. */
 /* #undef HAVE__STAT */
@@ -312,7 +312,7 @@
 #define VA_LIST_IS_ARRAY 1
 
 /* Version number of package */
-#define VERSION "2.9.4"
+#define VERSION "2.9.7"
 
 /* Determine what socket length (socklen_t) data type is */
 #define XML_SOCKLEN_T socklen_t
@@ -321,9 +321,6 @@
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
 /* #undef _UINT32_T */
-
-/* Using the Win32 Socket implementation */
-/* #undef _WINSOCKAPI_ */
 
 /* ss_family is not defined here, use __ss_family instead */
 /* #undef ss_family */
