@@ -37,7 +37,7 @@ class Type : public Castable<Type>, public ZoneAllocated {
   DECLARE_ABSTRACT_ANALYZE_TYPE(Type, Castable);
 
  public:
-  virtual ~Type();
+  ~Type() override;
 
   // Returns unique identifier of |Type|.
   int id() const { return id_; }

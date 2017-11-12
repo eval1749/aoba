@@ -10,19 +10,19 @@
 namespace aoba {
 namespace ir {
 
-#define V(capital, underscoe)                                        \
+#define V(capital, underscoe)                                       \
   class AOBA_IR_EXPORT capital##Type final : public PrimitiveType { \
-    DECLARE_CONCRETE_IR_TYPE(capital##Type, PrimitiveType);          \
-                                                                     \
-   public:                                                           \
-    ~capital##Type();                                                \
-                                                                     \
-   private:                                                          \
-    friend class PrimitiveTypeFactory;                               \
-                                                                     \
-    capital##Type();                                                 \
-                                                                     \
-    DISALLOW_COPY_AND_ASSIGN(capital##Type);                         \
+    DECLARE_CONCRETE_IR_TYPE(capital##Type, PrimitiveType);         \
+                                                                    \
+   public:                                                          \
+    ~capital##Type() override;                                      \
+                                                                    \
+   private:                                                         \
+    friend class PrimitiveTypeFactory;                              \
+                                                                    \
+    capital##Type();                                                \
+                                                                    \
+    DISALLOW_COPY_AND_ASSIGN(capital##Type);                        \
   };
 
 //
@@ -32,7 +32,7 @@ class AOBA_IR_EXPORT PrimitiveType : public Type {
   DECLARE_ABSTRACT_IR_TYPE(PrimitiveType, Type);
 
  public:
-  ~PrimitiveType();
+  ~PrimitiveType() override;
 
  protected:
   PrimitiveType();

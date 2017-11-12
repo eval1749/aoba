@@ -181,7 +181,7 @@ NameResolver::Environment::NewGlobalEnvironment(NameResolver* resolver) {
     Properties::Editor().Add(&properties, property);
     environment->BindVariable(name, variable);
   }
-  return std::move(environment);
+  return environment;
 }
 
 void NameResolver::Environment::ResolveForwardReferences() {
@@ -217,7 +217,7 @@ void NameResolver::Environment::ResolveForwardReferences() {
 //
 NameResolver::NameResolver(Context* context)
     : Pass(context),
-      global_environment_(std::move(Environment::NewGlobalEnvironment(this))),
+      global_environment_(Environment::NewGlobalEnvironment(this)),
       variable_kind_(VariableKind::Function) {
   factory().ResetCurrentId();
   type_factory().ResetCurrentId();
@@ -505,7 +505,7 @@ void NameResolver::ProcessMethod(const ast::Node& method_node,
   BindTypeParameters(class_value);
   const auto& type_parameters =
       ProcessTypeParameterNames(annotation.type_parameter_names());
-  for (const auto& type_parameter : type_parameters)
+  for (const auto* type_parameter : type_parameters)
     BindType(type_parameter->name(), *type_parameter);
   if (annotation.has_document())
     Visit(annotation.document());
@@ -515,7 +515,7 @@ void NameResolver::ProcessMethod(const ast::Node& method_node,
 // Bind name in "@param {type} name" tags.
 void NameResolver::ProcessParamTags(const Annotation& annotation) {
   Environment environment(this);
-  for (const auto& parameter_tag : annotation.parameter_tags()) {
+  for (const auto* parameter_tag : annotation.parameter_tags()) {
     const auto& reference = parameter_tag->child_at(2);
     if (!reference.Is<ast::ReferenceExpression>())
       continue;
@@ -563,7 +563,7 @@ void NameResolver::ProcessFunction(const ast::Node& node,
   }
 
   Environment environment(this);
-  for (const auto& type_parameter : type_parameters)
+  for (const auto* type_parameter : type_parameters)
     BindType(type_parameter->name(), *type_parameter);
   if (annotation.has_document())
     Visit(annotation.document());
@@ -598,7 +598,7 @@ void NameResolver::ProcessObjectMember(const Object& object_value,
     Value::Editor().AddAssignment(property, method);
     const auto& type_parameters =
         ProcessTypeParameterNames(annotation.type_parameter_names());
-    for (const auto& type_parameter : type_parameters)
+    for (const auto* type_parameter : type_parameters)
       BindType(type_parameter->name(), *type_parameter);
     if (annotation.has_document())
       Visit(annotation.document());
@@ -665,7 +665,7 @@ void NameResolver::ProcessPropertyAssignment(const ast::Node& node,
 
 // Bind name of @template tags
 void NameResolver::ProcessTemplateTags(const Annotation& annotation) {
-  for (const auto& type_parameter :
+  for (const auto* type_parameter :
        ProcessTypeParameterNames(annotation.type_parameter_names())) {
     BindType(type_parameter->name(), *type_parameter);
   }
@@ -674,7 +674,7 @@ void NameResolver::ProcessTemplateTags(const Annotation& annotation) {
 std::vector<const TypeParameter*> NameResolver::ProcessTypeParameterNames(
     const std::vector<const ast::Node*>& type_names) {
   std::vector<const TypeParameter*> type_parameters;
-  for (const auto& type_name : type_names) {
+  for (const auto* type_name : type_names) {
     const auto& name = ast::TypeName::NameOf(*type_name);
     const auto& type = type_factory().NewTypeParameter(name);
     type_parameters.push_back(&type.As<TypeParameter>());

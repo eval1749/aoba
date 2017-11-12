@@ -57,7 +57,7 @@ Operator::Format::Builder::~Builder() = default;
 
 Operator::Format Operator::Format::Builder::Build() {
   if (format_.is_variadic())
-    DCHECK_EQ(format_.arity(), 0);
+    DCHECK_EQ(format_.arity(), 0u);
   return format_;
 }
 
@@ -95,7 +95,7 @@ base::StringPiece Operator::mnemonic() const {
 #undef V
   };
 
-  const auto& it = std::begin(kMnemonics) + static_cast<size_t>(opcode_);
+  const auto* it = std::begin(kMnemonics) + static_cast<size_t>(opcode_);
   DCHECK(it >= std::begin(kMnemonics));
   DCHECK(it < std::end(kMnemonics));
   return base::StringPiece(*it);

@@ -29,8 +29,7 @@ bool CanStartType(const ast::Node& token) {
          token == ast::TokenKind::LeftParenthesis ||
          token == ast::TokenKind::LeftBracket ||
          token == ast::TokenKind::LeftBrace ||
-         token == ast::TokenKind::Question;
-  token == ast::TokenKind::Times;
+         token == ast::TokenKind::Question || token == ast::TokenKind::Times;
 }
 
 std::unique_ptr<BracketTracker> NewBracketTracker(
@@ -90,8 +89,7 @@ TypeParser::TypeParser(ParserContext* context,
     : bracket_tracker_(NewBracketTracker(&context->error_sink(), range)),
       context_(*context),
       lexer_(new TypeLexer(context, range, options, mode)),
-      node_start_(range.start()),
-      options_(options) {}
+      node_start_(range.start()) {}
 
 TypeParser::TypeParser(ParserContext* context,
                        const SourceCodeRange& range,

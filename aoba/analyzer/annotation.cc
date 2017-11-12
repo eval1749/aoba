@@ -23,7 +23,6 @@ Annotation::Annotation(Annotation&& other)
       extends_tags_(std::move(other.extends_tags_)),
       final_tag_(other.final_tag_),
       implements_tags_(std::move(other.implements_tags_)),
-      kind_(other.kind_),
       kind_tag_(other.kind_tag_),
       override_tag_(other.override_tag_),
       parameter_tags_(std::move(other.parameter_tags_)),

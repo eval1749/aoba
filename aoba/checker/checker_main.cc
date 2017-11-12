@@ -41,6 +41,14 @@ namespace aoba {
 
 ExternsModule GetEcmascriptExtens();
 
+ExternsModule::ExternsModule(const char* name,
+                             const std::vector<ExternsFile>& files)
+    : name(name), files(files) {}
+
+ExternsModule::ExternsModule(const ExternsModule&) = default;
+
+ExternsModule::~ExternsModule() = default;
+
 namespace internal {
 
 class ErrorRecord final : public ZoneAllocated {
@@ -97,6 +105,9 @@ class ScriptModule final {
   ScriptModule() = default;
 
   SourceCodeLine SourceCodeLinetAt(int offset) const;
+
+  const ast::Node& root_node() const { return root_node_; }
+  const SourceCode& source_code() const { return source_code_; }
 
  private:
   const std::unique_ptr<SourceCodeLine::Cache> line_cache_;
@@ -230,7 +241,7 @@ void Checker::Analyze() {
                              .set_zone(&zone)
                              .Build();
   Analyzer analyzer(*settings);
-  for (const auto& module : modules_)
+  for (const auto* module : modules_)
     analyzer.Load(*module);
   analyzer.Analyze();
 

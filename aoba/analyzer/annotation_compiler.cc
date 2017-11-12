@@ -166,6 +166,9 @@ void Compiler::Classify(const ast::Node& document) {
       case ast::TokenKind::AtTemplate:
         ProcessTemplateTag(node);
         continue;
+      default:
+        DVLOG(0) << "NYI" << tag_name;
+        break;
     }
   }
 }
@@ -214,7 +217,7 @@ void Compiler::ReportErrorTag(ErrorCode error_code,
 void Compiler::ReportErrorTags(ErrorCode error_code,
                                const std::vector<const ast::Node*>& tags) {
   DCHECK(maybe_context_);
-  for (const auto& tag : tags)
+  for (const auto* tag : tags)
     AddError(*tag, error_code);
 }
 

@@ -85,8 +85,8 @@ class AOBA_AST_EXPORT InclusiveDescendants {
              const Node* container,
              const Node* start_node);
 
-    std::stack<std::pair<const Node*, size_t>> stack_;
     const InclusiveDescendants* owner_;
+    std::stack<std::pair<const Node*, size_t>> stack_;
   };
 
   InclusiveDescendants(const InclusiveDescendants& other);

@@ -50,7 +50,7 @@ std::string ParserTest::Parse(base::StringPiece script_text,
   const auto& module = parser.Run();
   std::ostringstream ostream;
   ostream << AsPrintableTree(module) << std::endl;
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }
@@ -73,7 +73,7 @@ std::string ParserTest::ToString(const ast::Node& node,
                                  const ast::Node* module) {
   std::ostringstream ostream;
   ostream << AsPrintableTree(node) << std::endl;
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }

@@ -115,7 +115,7 @@ Parser::OperatorPrecedence Parser::CategoryOf(const ast::Node& token) const {
   if (token != ast::SyntaxCode::Punctuator)
     return Parser::OperatorPrecedence::None;
   const auto kind = ast::Punctuator::KindOf(token);
-  const auto& it = std::begin(CategoryMap) + static_cast<size_t>(kind);
+  const auto* it = std::begin(CategoryMap) + static_cast<size_t>(kind);
   DCHECK(it >= std::begin(CategoryMap)) << token;
   DCHECK(it < std::end(CategoryMap)) << token;
   return *it;
@@ -427,6 +427,8 @@ const ast::Node& Parser::ParseNameAsExpression() {
       return node_factory().NewReferenceExpression(name);
     case ast::TokenKind::True:
       return node_factory().NewBooleanLiteral(name, true);
+    default:
+      break;
   }
   if (ast::Name::IsKeyword(name))
     return NewInvalidExpression(name, ErrorCode::ERROR_EXPRESSION_INVALID);

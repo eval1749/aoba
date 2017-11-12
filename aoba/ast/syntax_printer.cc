@@ -58,7 +58,7 @@ std::ostream& operator<<(std::ostream& ostream,
   const auto& syntax = *printable.value;
   const auto min = syntax.min();
   const auto max = syntax.max();
-  const auto method = syntax.is_lazy() ? "?" : "";
+  const auto* method = syntax.is_lazy() ? "?" : "";
   if (min == 0 && max == 1)
     return ostream << "<?" << method << '>';
   if (min == 0 && max == kRegExpInfinity)
@@ -87,7 +87,7 @@ std::ostream& operator<<(std::ostream& ostream, FunctionKind kind) {
       FOR_EACH_AST_FUNCTION_KIND(V)
 #undef V
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(kind);
+  const char* const* it = std::begin(kTexts) + static_cast<size_t>(kind);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "FunctionKind" << static_cast<size_t>(kind);
   return ostream << *it;
@@ -100,7 +100,7 @@ std::ostream& operator<<(std::ostream& ostream, FunctionTypeKind kind) {
       FOR_EACH_AST_FUNCTION_TYPE_KIND(V)
 #undef V
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(kind);
+  const char* const* it = std::begin(kTexts) + static_cast<size_t>(kind);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "FunctionTypeKind" << static_cast<size_t>(kind);
   return ostream << *it;
@@ -113,7 +113,7 @@ std::ostream& operator<<(std::ostream& ostream, MethodKind kind) {
       FOR_EACH_AST_METHOD_KIND(V)
 #undef V
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(kind);
+  const char* const* it = std::begin(kTexts) + static_cast<size_t>(kind);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "MethodKind" << static_cast<size_t>(kind);
   return ostream << *it;
@@ -143,7 +143,7 @@ std::ostream& operator<<(std::ostream& ostream, TokenKind kind) {
 #undef V
           "EndOfJsDocTagName",
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(kind);
+  const char* const* it = std::begin(kTexts) + static_cast<size_t>(kind);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "TokenKind" << static_cast<size_t>(kind);
   return ostream << *it;
@@ -184,7 +184,7 @@ std::ostream& operator<<(std::ostream& ostream, SyntaxCode syntax_code) {
     FOR_EACH_AST_SYNTAX(V)
 #undef V
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(syntax_code);
+  const char* const* it = std::begin(kTexts) + static_cast<size_t>(syntax_code);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "SyntaxCode" << static_cast<size_t>(syntax_code);
   return ostream << *it;

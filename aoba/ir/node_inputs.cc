@@ -77,7 +77,7 @@ void NodeInputs::InitUseEdges(UseEdge* use_edge,
                               const Node& from,
                               const std::vector<const Node*>& to_nodes) {
   auto* runner = use_edge;
-  for (const auto& to : to_nodes) {
+  for (const auto* to : to_nodes) {
     InitUseEdge(runner, from, *to);
     ++runner;
   }

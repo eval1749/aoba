@@ -71,12 +71,30 @@ class DoubleLinked final {
     friend class DoubleLinked;
 
     Node* next_;
-    Node* previous_;
 #if DCHECK_IS_ON()
     DoubleLinked* owner_;
 #endif
+    Node* previous_;
 
     DISALLOW_COPY_AND_ASSIGN(NodeBase);
+  };
+
+  class IteratorBase {
+   public:
+    Node* operator*() const { return current_; }
+    Node* operator->() const { return current_; }
+    bool operator==(const IteratorBase& other) const {
+      return current_ == other.current_;
+    }
+    bool operator!=(const IteratorBase& other) const {
+      return !operator==(other);
+    }
+
+   protected:
+    explicit IteratorBase(Node* node) : current_(node) {}
+    ~IteratorBase() = default;
+
+    Node* current_;
   };
 
   class Iterator final : public IteratorBase {
@@ -94,8 +112,8 @@ class DoubleLinked final {
     Iterator& operator=(const Iterator& other) = default;
 
     Iterator& operator++() {
-      DCHECK(!!current_);
-      current_ = static_cast<NodeBase*>(current_)->next_;
+      DCHECK(!!this->current_);
+      this->current_ = static_cast<NodeBase*>(this->current_)->next_;
       return *this;
     }
   };
@@ -115,8 +133,8 @@ class DoubleLinked final {
     ReverseIterator& operator=(const ReverseIterator& other) = default;
 
     ReverseIterator& operator++() {
-      DCHECK(!!current_);
-      current_ = static_cast<NodeBase*>(current_)->previous_;
+      DCHECK(!!this->current_);
+      this->current_ = static_cast<NodeBase*>(this->current_)->previous_;
       return *this;
     }
   };
@@ -321,24 +339,6 @@ class DoubleLinked final {
   }
 
  private:
-  class IteratorBase {
-   public:
-    Node* operator*() const { return current_; }
-    Node* operator->() const { return current_; }
-    bool operator==(const IteratorBase& other) const {
-      return current_ == other.current_;
-    }
-    bool operator!=(const IteratorBase& other) const {
-      return !operator==(other);
-    }
-
-   protected:
-    explicit IteratorBase(Node* node) : current_(node) {}
-    ~IteratorBase() = default;
-
-    Node* current_;
-  };
-
   Node* first_;
   Node* last_;
 

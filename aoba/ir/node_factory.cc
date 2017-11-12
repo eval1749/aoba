@@ -33,7 +33,7 @@ class Node::Format::Builder final {
 
   Format Build() {
     if (format_.is_variadic())
-      DCHECK_EQ(format_.number_of_inputs(), 0);
+      DCHECK_EQ(format_.number_of_inputs(), 0u);
     return format_;
   }
 
@@ -277,8 +277,8 @@ const Node& NodeFactory::NewRetNode(const Node& control, const Node& node) {
 
 const Node& NodeFactory::NewStartNode(const Type& output_type) {
   DCHECK(output_type.Is<TupleType>()) << output_type;
-  DCHECK_GE(output_type.As<TupleType>().size(), 2) << output_type;
-  DCHECK_LE(output_type.As<TupleType>().size(), 3) << output_type;
+  DCHECK_GE(output_type.As<TupleType>().size(), 2u) << output_type;
+  DCHECK_LE(output_type.As<TupleType>().size(), 3u) << output_type;
   DCHECK(output_type.As<TupleType>().get(0).Is<ControlType>()) << output_type;
   return NewNode0(operator_factory_.NewStart(), output_type);
 }
@@ -287,7 +287,7 @@ const Node& NodeFactory::NewTupleNodeFromVector(
     const std::vector<const Node*>& nodes) {
   std::vector<const Type*> types(nodes.size());
   types.resize(0);
-  for (const auto& node : nodes)
+  for (const auto* node : nodes)
     types.emplace_back(&node->output_type());
   auto& output_type = type_factory_.NewTupleTypeFromVector(types);
   return GetOrNewNodeN(operator_factory_.NewTuple(nodes.size()), output_type,

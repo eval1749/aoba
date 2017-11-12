@@ -262,8 +262,7 @@ void Parser::SkipCommentTokens() {
 
 bool Parser::SkipToListElement() {
   const auto current_depth = bracket_tracker_->depth();
-  DCHECK_GT(current_depth, 0) << "We should call SkipListElement() in list.";
-  const auto close_bracket = bracket_tracker_->close_bracket();
+  DCHECK_GT(current_depth, 0u) << "We should call SkipListElement() in list.";
   while (CanPeekToken()) {
     if (current_depth != bracket_tracker_->depth()) {
       ConsumeToken();

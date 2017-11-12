@@ -77,7 +77,7 @@ TEST_F(IrOperatorTest, Tuple) {
   EXPECT_EQ(factory().NewTuple(1), factory().NewTuple(1));
   EXPECT_NE(factory().NewTuple(1), factory().NewTuple(0));
   EXPECT_FALSE(factory().NewTuple(3).is_variadic());
-  EXPECT_EQ(3, factory().NewTuple(3).arity());
+  EXPECT_EQ(3u, factory().NewTuple(3).arity());
 }
 
 }  // namespace ir

@@ -115,7 +115,6 @@ class TypeParser final {
   const std::unique_ptr<BracketTracker> bracket_tracker_;
   ParserContext& context_;
   const std::unique_ptr<TypeLexer> lexer_;
-  const ParserOptions& options_;
   int node_start_;
 
   DISALLOW_COPY_AND_ASSIGN(TypeParser);

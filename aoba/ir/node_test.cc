@@ -76,8 +76,8 @@ TEST_F(IrNodeTest, LiteralBool) {
   auto& literal_true = node_factory().NewLiteralBool(true);
   auto& literal_false = node_factory().NewLiteralBool(false);
 
-  EXPECT_EQ(0, literal_true.number_of_inputs());
-  EXPECT_EQ(0, literal_false.number_of_inputs());
+  EXPECT_EQ(0u, literal_true.number_of_inputs());
+  EXPECT_EQ(0u, literal_false.number_of_inputs());
 
   EXPECT_NE(literal_true, literal_false);
   EXPECT_EQ(literal_true, node_factory().NewLiteralBool(true))

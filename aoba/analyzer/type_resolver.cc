@@ -93,7 +93,7 @@ void TypeResolver::SetClassHeritage(const Class& class_value,
   }
 
   // Process @extends tags
-  for (const auto& extends_tag : annotation.extends_tags()) {
+  for (const auto* extends_tag : annotation.extends_tags()) {
     const auto& reference = extends_tag->child_at(1);
     auto* const referenced_class = ResolveClass(reference);
     if (!referenced_class || is_class != referenced_class->is_class()) {
@@ -130,7 +130,7 @@ void TypeResolver::SetClassHeritage(const Class& class_value,
   }
 
   // Process @implements tags
-  for (const auto& implements_tag : annotation.implements_tags()) {
+  for (const auto* implements_tag : annotation.implements_tags()) {
     const auto& reference = implements_tag->child_at(1);
     auto* const referenced_class = ResolveClass(reference);
     if (!referenced_class || referenced_class->is_class()) {

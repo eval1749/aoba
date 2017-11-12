@@ -53,12 +53,12 @@ FunctionType::FunctionType(
     DCHECK_EQ(static_cast<size_t>(arity_.maximum) + 1, parameters.size());
   else
     DCHECK_EQ(static_cast<size_t>(arity_.maximum), parameters.size());
-  auto* runner = elements_;
-  for (const auto& parameter : parameters) {
+  auto** runner = elements_;
+  for (const auto* parameter : parameters) {
     *runner = parameter;
     ++runner;
   }
-  for (const auto& type_parameter : type_parameters) {
+  for (const auto* type_parameter : type_parameters) {
     *runner = type_parameter;
     ++runner;
   }
@@ -144,8 +144,8 @@ PrimitiveType::~PrimitiveType() = default;
 //
 RecordType::RecordType(int id, const std::vector<const LabeledType*>& members)
     : Type(id), number_of_members_(members.size()) {
-  auto* runner = members_;
-  for (const auto& member : members) {
+  auto** runner = members_;
+  for (const auto* member : members) {
     *runner = member;
     runner++;
   }
@@ -162,8 +162,8 @@ BlockRange<const LabeledType*> RecordType::members() const {
 //
 TupleType::TupleType(int id, const std::vector<const Type*>& members)
     : Type(id), number_of_members_(members.size()) {
-  auto* runner = members_;
-  for (const auto& member : members) {
+  auto** runner = members_;
+  for (const auto* member : members) {
     *runner = member;
     runner++;
   }
@@ -203,9 +203,9 @@ TypeParameter::~TypeParameter() = default;
 //
 UnionType::UnionType(int id, const std::vector<const Type*>& members)
     : Type(id), number_of_members_(members.size()) {
-  DCHECK_GE(number_of_members_, 2);
-  auto* runner = members_;
-  for (const auto& member : members) {
+  DCHECK_GE(number_of_members_, 2u);
+  auto** runner = members_;
+  for (const auto* member : members) {
     *runner = member;
     runner++;
   }

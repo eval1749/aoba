@@ -39,7 +39,7 @@ std::string RegExpParserTest::Parse(base::StringPiece script_text,
   const auto& node = parser.Parse();
   std::ostringstream ostream;
   ostream << AsPrintableTree(node) << std::endl;
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }

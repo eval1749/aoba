@@ -38,7 +38,7 @@ class Value : public Castable<Value>, public ZoneAllocated {
  public:
   class Editor;
 
-  virtual ~Value();
+  ~Value() override;
 
   bool operator==(const Value& other) const;
   bool operator==(const Value* other) const;

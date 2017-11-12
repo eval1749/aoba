@@ -65,7 +65,7 @@ class ListOwner {
 
   std::string ToString() const {
     std::string result;
-    auto separator = "";
+    auto* separator = "";
     for (auto const node : nodes_) {
       result += separator + node->value();
       separator = ", ";
@@ -156,7 +156,7 @@ TEST_F(DoubleLinkedTest, IteratorCategory) {
   // parameters.
   std::vector<Node*> nodes(list1.begin(), list1.end());
   std::string result;
-  for (auto node : nodes)
+  for (const auto* node : nodes)
     result += node->value();
   EXPECT_EQ("ABC", result);
 }
@@ -207,7 +207,7 @@ TEST_F(DoubleLinkedTest, ReverseIterator) {
 
 TEST_F(DoubleLinkedTest, Reversed) {
   std::string result;
-  for (auto const node : base::Reversed(list1))
+  for (const auto* node : base::Reversed(list1))
     result += node->value();
   EXPECT_EQ("CBA", result);
 }

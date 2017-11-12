@@ -26,7 +26,7 @@ TEST(HashUtlsTest, HashPair) {
 }
 
 TEST(HashUtlsTest, HashTuple) {
-  EXPECT_EQ(0, ComputeHash(std::make_tuple()));
+  EXPECT_EQ(0u, ComputeHash(std::make_tuple()));
 
   EXPECT_EQ(ComputeHash(std::make_tuple(1)), ComputeHash(std::make_tuple(1)));
 

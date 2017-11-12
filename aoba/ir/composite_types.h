@@ -25,7 +25,7 @@ class AOBA_IR_EXPORT CompositeType : public Type {
   DECLARE_ABSTRACT_IR_TYPE(CompositeType, Type);
 
  public:
-  ~CompositeType();
+  ~CompositeType() override;
 
  protected:
   CompositeType();
@@ -43,7 +43,7 @@ class CompositeTypeTemplate : public Base {
                 "CompositeTypeTemplate should have at least one member.");
 
  public:
-  ~CompositeTypeTemplate() = default;
+  ~CompositeTypeTemplate() override = default;
 
  protected:
   template <typename... Parameters>
@@ -72,7 +72,7 @@ class AOBA_IR_EXPORT FunctionType
   DECLARE_CONCRETE_IR_TYPE(FunctionType, CompositeType);
 
  public:
-  ~FunctionType();
+  ~FunctionType() override;
 
   const TupleType& parameters_type() const { return *member_at<0>(); }
   const Type& return_type() const { return *member_at<1>(); }
@@ -93,7 +93,7 @@ class AOBA_IR_EXPORT ReferenceType
   DECLARE_CONCRETE_IR_TYPE(ReferenceType, CompositeType);
 
  public:
-  ~ReferenceType();
+  ~ReferenceType() override;
 
   const Type& to() const { return *member_at<0>(); }
 
@@ -112,7 +112,7 @@ class AOBA_IR_EXPORT TupleType : public CompositeType {
   DECLARE_CONCRETE_IR_TYPE(TupleType, CompositeType);
 
  public:
-  ~TupleType();
+  ~TupleType() override;
 
   const Type& get(size_t index) const { return *members_[index]; }
   auto members() const { return ReferenceRangeOf(members_); }
@@ -135,7 +135,7 @@ class AOBA_IR_EXPORT UnionType : public CompositeType {
   DECLARE_CONCRETE_IR_TYPE(UnionType, CompositeType);
 
  public:
-  ~UnionType();
+  ~UnionType() override;
 
   auto members() const { return ReferenceRangeOf(members_); }
 

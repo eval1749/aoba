@@ -33,8 +33,8 @@ class AOBA_BASE_EXPORT SourceCodeLine final {
 
   SourceCodeLine(const SourceCodeRange& range, int number);
 
-  SourceCodeRange range_;
   int number_ = 0;
+  SourceCodeRange range_;
 };
 
 AOBA_BASE_EXPORT std::ostream& operator<<(std::ostream& ostream,

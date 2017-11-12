@@ -16,7 +16,6 @@ namespace aoba {
 
 namespace {
 
-const int kMaxUnicodeCodePoint = 0x10FFFF;
 const base::char16 kLineSeparator = 0x2028;
 const base::char16 kParagraphSeparator = 0x2029;
 

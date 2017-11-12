@@ -76,6 +76,7 @@ bool IsMethod(const ast::Node& node) {
   return false;
 }
 
+#if 0
 // Returns member part of computed member expression or member expression.
 const ast::Node* ContainerOf(const ast::Node& node) {
   if (node.Is(ast::SyntaxCode::ComputedMemberExpression))
@@ -84,6 +85,7 @@ const ast::Node* ContainerOf(const ast::Node& node) {
     return &ast::MemberExpression::ContainerOf(node);
   return nullptr;
 }
+#endif
 
 }  // namespace
 
@@ -198,7 +200,7 @@ TypeAnnotationTransformer::FunctionParameters::Builder::Build() {
     }
     NOTREACHED() << "NYI ProcessParameter " << parameter_node;
   }
-  for (const auto& parameter_tag : parameter_tags_) {
+  for (const auto* parameter_tag : parameter_tags_) {
     if (used_tags_.count(parameter_tag) == 1)
       continue;
     AddError(*parameter_tag, ErrorCode::JSDOC_UNEXPECT_PARAMETER);
@@ -286,7 +288,7 @@ void TypeAnnotationTransformer::FunctionParameters::Builder::
   const auto& binding = node.child_at(0);
   if (binding.Is<ast::BindingNameElement>()) {
     const auto& name = ast::BindingNameElement::NameOf(binding);
-    const auto& maybe_tag = FindParameterTag(name);
+    const auto* maybe_tag = FindParameterTag(name);
     if (!maybe_tag) {
       RecordName(name);
       parameter_types_.push_back(&unspecified_type());
@@ -366,6 +368,9 @@ const Type* TypeAnnotationTransformer::Compile() {
     case Annotation::Kind::Constructor:
     case Annotation::Kind::Function:
       return &TransformAsFunctionType();
+    case Annotation::Kind::Define:
+      NOTREACHED() << "NYI: Define";
+      break;
     case Annotation::Kind::Enum:
       DVLOG(0) << "NYI enum type" << annotation_.document() << ' ' << node_;
       return nullptr;
@@ -380,6 +385,10 @@ const Type* TypeAnnotationTransformer::Compile() {
       }
       return &TransformType(type_node);
     }
+    default:
+      DVLOG(0) << "NYI Annotation::Kind="
+               << static_cast<int>(annotation_.kind());
+      break;
   }
   return nullptr;
 }
@@ -416,10 +425,10 @@ const Type& TypeAnnotationTransformer::ComputeThisTypeFromMember(
 std::vector<const TypeParameter*>
 TypeAnnotationTransformer::ComputeTypeParameters() {
   std::vector<const TypeParameter*> type_parameters;
-  for (const auto& type_name : annotation_.type_parameter_names())
+  for (const auto* type_name : annotation_.type_parameter_names())
     type_parameters.push_back(
         &context().TypeOf(*type_name).As<TypeParameter>());
-  return std::move(type_parameters);
+  return type_parameters;
 }
 
 TypeAnnotationTransformer::FunctionParameters
@@ -441,7 +450,7 @@ TypeAnnotationTransformer::ProcessParameterTags() {
   FunctionTypeArity arity;
   std::vector<const Type*> parameter_types;
   std::vector<const ast::Node*> parameter_names;
-  for (const auto& parameter_tag : annotation_.parameter_tags()) {
+  for (const auto* parameter_tag : annotation_.parameter_tags()) {
     const auto& type_node = parameter_tag->child_at(1);
     const auto is_optional = type_node.Is<ast::OptionalType>();
     const auto is_rest = type_node.Is<ast::RestType>();

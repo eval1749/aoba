@@ -171,7 +171,7 @@ std::ostream& operator<<(std::ostream& ostream, VariableKind kind) {
       FOR_EACH_VARIABLE_KIND(V)
 #undef V
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(kind);
+  auto** it = std::begin(kTexts) + static_cast<size_t>(kind);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "VariableKind" << static_cast<size_t>(kind);
   return ostream << *it;
@@ -183,7 +183,7 @@ std::ostream& operator<<(std::ostream& ostream, Visibility kind) {
       FOR_EACH_VISIBILITY(V)
 #undef V
   };
-  const auto& it = std::begin(kTexts) + static_cast<size_t>(kind);
+  auto** it = std::begin(kTexts) + static_cast<size_t>(kind);
   if (it < std::begin(kTexts) || it >= std::end(kTexts))
     return ostream << "Visibility" << static_cast<size_t>(kind);
   return ostream << *it;

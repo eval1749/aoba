@@ -20,6 +20,10 @@ std::string Function::ToString() const {
 }
 
 // Printable
+PrintableBlocks::PrintableBlocks(const PrintableBlocks&) = default;
+PrintableBlocks::PrintableBlocks() = default;
+PrintableBlocks::~PrintableBlocks() = default;
+
 PrintableBlocks Printable(const ZoneUnorderedSet<Block*>& blocks) {
   PrintableBlocks printable;
   printable.blocks.insert(printable.blocks.end(), blocks.begin(), blocks.end());
@@ -38,8 +42,8 @@ PrintableBlocks Printable(const ZoneVector<Block*>& blocks) {
 
 std::ostream& operator<<(std::ostream& ostream, const PrintableBlocks& blocks) {
   ostream << "{";
-  auto separator = "";
-  for (auto const block : blocks.blocks) {
+  auto* separator = "";
+  for (auto* block : blocks.blocks) {
     ostream << separator << block;
     separator = ", ";
   }
@@ -64,7 +68,7 @@ std::ostream& operator<<(std::ostream& ostream, const Block* block) {
 }
 
 std::ostream& operator<<(std::ostream& ostream, const Function& function) {
-  for (auto const block : function.nodes())
+  for (auto* block : function.nodes())
     ostream << *block << std::endl;
   return ostream;
 }
@@ -73,7 +77,7 @@ GraphTestBase::GraphTestBase() : ZoneOwner("GraphTestBase") {}
 GraphTestBase::~GraphTestBase() = default;
 
 Block* GraphTestBase::NewBlock(int id) {
-  auto const block = new (zone()) Block(zone(), id);
+  auto* block = new (zone()) Block(zone(), id);
   blocks_.push_back(block);
   return block;
 }
@@ -85,10 +89,10 @@ Block* GraphTestBase::NewBlock(int id) {
 //     \  /
 //      4
 void GraphTestBase::MakeDiamondGraph() {
-  auto const block1 = NewBlock(1);
-  auto const block2 = NewBlock(2);
-  auto const block3 = NewBlock(3);
-  auto const block4 = NewBlock(4);
+  auto* block1 = NewBlock(1);
+  auto* block2 = NewBlock(2);
+  auto* block3 = NewBlock(3);
+  auto* block4 = NewBlock(4);
 
   Function::Editor().AppendNode(&function(), block1)
       .AppendNode(&function(), block2)
@@ -122,13 +126,13 @@ void GraphTestBase::MakeDiamondGraph() {
 void GraphTestBase::MakeSampleGraph1() {
   Function::Editor editor;
 
-  auto const entry_block = NewBlock(-1);
-  auto const exit_block = NewBlock(-2);
+  auto* entry_block = NewBlock(-1);
+  auto* exit_block = NewBlock(-2);
 
   editor.AppendNode(&function(), entry_block);
   std::array<Block*, 7> blocks;
   auto id = 0;
-  for (auto& ref : blocks) {
+  for (auto* ref : blocks) {
     ref = NewBlock(id);
     editor.AppendNode(&function(), blocks[id]);
     ++id;
@@ -160,8 +164,8 @@ void GraphTestBase::MakeSampleGraph1() {
 std::string ToString(const OrderedList<Block*>& list) {
   std::ostringstream ostream;
   ostream << "[";
-  auto separator = "";
-  for (auto const block : list) {
+  auto* separator = "";
+  for (auto* block : list) {
     ostream << separator << block;
     separator = ", ";
   }

@@ -54,7 +54,7 @@ class NamedType : public Type {
   DECLARE_ABSTRACT_ANALYZE_TYPE(NamedType, Type)
 
  public:
-  ~NamedType();
+  ~NamedType() override;
 
   bool is_anonymous() const;
   const ast::Node& name() const { return name_; }

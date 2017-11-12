@@ -90,7 +90,7 @@ ClassTreeBuilderTest::ClassTreeBuilderTest()
 
 std::string ClassTreeBuilderTest::GetErrors() const {
   std::ostringstream ostream;
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }

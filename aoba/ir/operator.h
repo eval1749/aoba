@@ -96,7 +96,7 @@ class AOBA_IR_EXPORT Operator : public Castable<Operator>,
     size_t number_of_members_ = 0;
   };
 
-  ~Operator();
+  ~Operator() override;
 
   const Format& format() const { return format_; }
 
@@ -173,7 +173,7 @@ class OperatorTemplate : public Base {
  private:
   // Implement |Operator| member functions
   size_t ComputeHashCode() const {
-    return HashCombine(std::hash<OperationCode>{}(opcode()),
+    return HashCombine(std::hash<OperationCode>{}(this->opcode()),
                        std::hash<std::tuple<Members...>>{}(members_));
   }
 

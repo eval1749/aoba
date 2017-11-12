@@ -39,7 +39,7 @@ std::vector<const ast::Node*> Parser::ParseBindingElements() {
     AddError(element.range(), ErrorCode::ERROR_BINDING_EXPECT_COMMA);
     continue;
   }
-  return std::move(elements);
+  return elements;
 }
 
 const ast::Node& Parser::ParseBindingElement() {

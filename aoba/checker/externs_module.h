@@ -18,6 +18,10 @@ struct ExternsFile {
 struct ExternsModule {
   const char* name;
   std::vector<ExternsFile> files;
+
+  ExternsModule(const char* name, const std::vector<ExternsFile>& files);
+  ExternsModule(const ExternsModule&);
+  ~ExternsModule();
 };
 
 }  // namespace aoba

@@ -64,7 +64,7 @@ GraphSorter<Graph, Direction>::GraphSorter(const Graph& graph,
 
 template <typename Graph, typename Direction>
 OrderedList<typename Graph::GraphNode*> GraphSorter<Graph, Direction>::Sort() {
-  OrderedList::Builder builder;
+  typename OrderedList::Builder builder;
   Visit(&builder, Direction::EntryOf(graph_));
   if (reverse_ == Reverse::Yes)
     builder.Reverse();

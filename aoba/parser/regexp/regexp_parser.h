@@ -71,12 +71,12 @@ class RegExpParser final {
   // parenthesis.
   std::stack<int> groups_;
 
-  const ParserOptions& options_;
-
   // The last consumed token before |ConsumeTokenIf()|.
   const ast::Node* last_token_ = nullptr;
 
   const std::unique_ptr<RegExpLexer> lexer_;
+
+  const ParserOptions& options_;
 
   DISALLOW_COPY_AND_ASSIGN(RegExpParser);
 };

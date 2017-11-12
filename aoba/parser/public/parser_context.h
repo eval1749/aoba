@@ -23,7 +23,7 @@ class NodeFactory;
 //
 class AOBA_PARSER_EXPORT ParserContext final {
  public:
-  AOBA_PARSER_EXPORT class Builder;
+  class AOBA_PARSER_EXPORT Builder;
 
   ~ParserContext();
 

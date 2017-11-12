@@ -34,7 +34,9 @@ class AOBA_IR_EXPORT Type : public Castable<Type>, public ZoneAllocated {
   DECLARE_ABSTRACT_IR_TYPE(Type, Castable);
 
  public:
+#if defined(COMPILER_MSVC) && !defined(__clang__)
   ~Type();
+#endif
 
   bool operator==(const Type& other) const;
   bool operator!=(const Type& other) const;

@@ -112,8 +112,8 @@ const Node& NodeFactory::NewVariadicNode(
     const std::vector<const Node*>& nodes) {
   const auto size = nodes.size();
   auto* const node = new (AllocateNode(&zone_, size)) Node(range, tag, size);
-  auto* runner = &node->nodes_[0];
-  for (const auto& child : nodes) {
+  auto** runner = &node->nodes_[0];
+  for (const auto* child : nodes) {
     *runner = child;
     ++runner;
   }
@@ -127,10 +127,10 @@ const Node& NodeFactory::NewVariadicNode(
     const std::vector<const Node*>& nodes) {
   const auto size = nodes.size() + 1;
   auto* const node = new (AllocateNode(&zone_, size)) Node(range, tag, size);
-  auto* runner = &node->nodes_[0];
+  auto** runner = &node->nodes_[0];
   *runner = &node0;
   ++runner;
-  for (const auto& child : nodes) {
+  for (const auto* child : nodes) {
     *runner = child;
     ++runner;
   }
@@ -789,7 +789,7 @@ const Node& NodeFactory::NewPrimitiveType(const Node& name) {
 const Node& NodeFactory::NewRecordType(
     const SourceCodeRange& range,
     const std::vector<const Node*>& members) {
-  for (const auto& member : members)
+  for (const auto* member : members)
     DCHECK(member->Is<Name>() || member->Is<Property>()) << member;
   return NewVariadicNode(range, syntax_factory_->NewRecordType(), members);
 }
@@ -802,7 +802,7 @@ const Node& NodeFactory::NewRestType(const SourceCodeRange& range,
 
 const Node& NodeFactory::NewTupleType(const SourceCodeRange& range,
                                       const std::vector<const Node*>& members) {
-  for (const auto& member : members)
+  for (const auto* member : members)
     DCHECK(member->syntax().Is<Type>()) << *member;
   return NewVariadicNode(range, syntax_factory_->NewTupleType(), members);
 }
@@ -830,7 +830,7 @@ const Node& NodeFactory::NewTypeName(const Node& name) {
 
 const Node& NodeFactory::NewUnionType(const SourceCodeRange& range,
                                       const std::vector<const Node*>& members) {
-  for (const auto& member : members)
+  for (const auto* member : members)
     DCHECK(member->syntax().Is<Type>()) << *member;
   return NewVariadicNode(range, syntax_factory_->NewUnionType(), members);
 }

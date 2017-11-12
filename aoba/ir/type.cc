@@ -11,7 +11,10 @@ namespace ir {
 // Type
 //
 Type::Type() = default;
+
+#if defined(COMPILER_MSVC) && !defined(__clang__)
 Type::~Type() = default;
+#endif
 
 bool Type::operator==(const Type& other) const {
   return this == &other;

@@ -44,7 +44,7 @@ const Value& ValueMap::ValueOf(const ast::Node& node) const {
   if (auto* present = TryValueOf(node))
     return *present;
   NOTREACHED() << "No value for " << node;
-  return *static_cast<Value*>(nullptr);
+  return *reinterpret_cast<Value*>(1);
 }
 
 }  // namespace analyzer

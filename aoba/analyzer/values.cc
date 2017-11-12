@@ -62,8 +62,8 @@ ConstructedClass::ConstructedClass(Zone* zone,
       number_of_arguments_(arguments.size()) {
   DCHECK_EQ(arguments.size(), generic_class.parameters().size());
   DCHECK_GE(arguments.size(), static_cast<size_t>(1));
-  auto* runner = arguments_;
-  for (const auto& argument : arguments) {
+  auto** runner = arguments_;
+  for (auto* argument : arguments) {
     *runner = argument;
     ++runner;
   }
@@ -101,8 +101,8 @@ GenericClass::GenericClass(Zone* zone,
     : Class(zone, id, kind, name, node, properties),
       number_of_parameters_(parameters.size()) {
   DCHECK_GE(parameters.size(), static_cast<size_t>(1));
-  auto* runner = parameters_;
-  for (const auto& parameter : parameters) {
+  auto** runner = parameters_;
+  for (auto* parameter : parameters) {
     *runner = parameter;
     ++runner;
   }

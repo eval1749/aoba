@@ -447,6 +447,9 @@ const ast::Node& Parser::ParseKeywordStatement() {
     case ast::TokenKind::Static:
       ConsumeToken();
       return NewInvalidStatement(ErrorCode::ERROR_STATEMENT_RESERVED_WORD);
+    default:
+      // An expression starts with keyword.
+      break;
   }
   return ParseExpressionStatement();
 }

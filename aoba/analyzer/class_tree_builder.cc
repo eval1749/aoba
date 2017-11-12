@@ -70,14 +70,14 @@ ClassTreeBuilder::~ClassTreeBuilder() = default;
 
 // public
 void ClassTreeBuilder::Build() {
-  for (const auto& node : graph_.nodes()) {
+  for (const auto* node : graph_.nodes()) {
     const auto& clazz = node->value();
     if (!CanFinalize(clazz))
       continue;
     DCHECK(node->HasPredecessor()) << clazz;
     FinalizeClass(clazz);
   }
-  for (const auto& constructed_class : pending_constructed_classes_) {
+  for (const auto* constructed_class : pending_constructed_classes_) {
     if (constructed_class->is_finalized())
       continue;
     FinalizeConstructedClass(*constructed_class);
@@ -107,7 +107,7 @@ void ClassTreeBuilder::ProcessClassDefinition(const Class& derived_class) {
     return;
   }
   auto& derived_class_node = GetOrNewNode(derived_class);
-  for (const auto& base_class : pending_classes) {
+  for (const auto* base_class : pending_classes) {
     auto& base_class_node = GetOrNewNode(*base_class);
     ClassGraph::Editor().AddEdge(&graph_, &base_class_node,
                                  &derived_class_node);
@@ -203,7 +203,7 @@ void ClassTreeBuilder::FinalizeClass(const Class& clazz) {
   ClassGraph::Editor().RemoveNode(&graph_, &class_node);
   std::vector<ClassNode*> successors(class_node.successors().begin(),
                                      class_node.successors().end());
-  for (const auto& successor : successors) {
+  for (auto* successor : successors) {
     ClassGraph::Editor().RemoveEdge(&graph_, &class_node, successor);
     if (successor->HasPredecessor())
       continue;
@@ -253,7 +253,7 @@ bool ClassTreeBuilder::IsProcessed(const Class& clazz) const {
 
 void ClassTreeBuilder::ValidateClassTree() {
   std::set<std::pair<const Class*, const Class*>> cycles;
-  for (const auto& node : graph_.nodes()) {
+  for (const auto* node : graph_.nodes()) {
     auto& user_class = node->value();
     if (user_class.Is<ConstructedClass>())
       continue;
@@ -262,7 +262,7 @@ void ClassTreeBuilder::ValidateClassTree() {
       AddError(user_class.node(), ErrorCode::CLASS_TREE_UNDEFINED_CLASS);
       continue;
     }
-    for (const auto& successor : node->successors()) {
+    for (const auto* successor : node->successors()) {
       auto& using_class = successor->value();
       DCHECK(IsProcessed(using_class)) << using_class << "<-" << user_class;
       DCHECK(!IsFinalized(using_class)) << using_class;

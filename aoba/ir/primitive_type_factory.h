@@ -33,6 +33,8 @@ class PrimitiveTypeFactory final {
   FOR_EACH_IR_PRIMITIVE_TYPE(V)
 #undef V
 
+  int dummy() const { return dummy_; }
+
  private:
   friend struct base::DefaultSingletonTraits<PrimitiveTypeFactory>;
 

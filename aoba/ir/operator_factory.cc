@@ -111,16 +111,16 @@ OperatorFactory::OperatorFactory(Zone* zone)
 
 OperatorFactory::~OperatorFactory() = default;
 
-#define IMPLEMENT_FACTORY_FUNCTION_0(name)                \
-  const Operator& OperatorFactory::New##name() {          \
-    if (auto* op = cache_->TryGet(OperationCode::##name)) \
-      return *op;                                         \
-    return cache_->Set(*new (&zone_) name##Operator());   \
+#define IMPLEMENT_FACTORY_FUNCTION_0(name)              \
+  const Operator& OperatorFactory::New##name() {        \
+    if (auto* op = cache_->TryGet(OperationCode::name)) \
+      return *op;                                       \
+    return cache_->Set(*new (&zone_) name##Operator()); \
   }
 
 #define IMPLEMENT_FACTORY_FUNCTION_1(name, type1)                       \
   const Operator& OperatorFactory::New##name(type1 value1) {            \
-    const auto& key = std::make_pair(OperationCode::##name, value1);    \
+    const auto& key = std::make_pair(OperationCode::name, value1);      \
     if (auto* op = cache_->Find(key))                                   \
       return *op;                                                       \
     return cache_->Register(key, *new (&zone_) name##Operator(value1)); \

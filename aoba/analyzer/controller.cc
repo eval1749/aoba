@@ -118,7 +118,7 @@ void Controller::Analyze() {
                         base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
   for (const auto& entry : kPassList) {
     const auto& pass = entry.constructor(context_.get());
-    for (const auto& node : nodes_)
+    for (const auto* node : nodes_)
       pass->RunOn(*node);
     pass->RunOnAll();
     if (std::count(dump_list.begin(), dump_list.end(), entry.key) > 0)
@@ -129,7 +129,7 @@ void Controller::Analyze() {
 }
 
 void Controller::DumpValues() {
-  for (const auto& toplevel : nodes_) {
+  for (const auto* toplevel : nodes_) {
     if (ShouldSkip(*toplevel))
       continue;
     for (const auto& node : ast::NodeTraversal::DescendantsOf(*toplevel)) {
@@ -142,7 +142,7 @@ void Controller::DumpValues() {
 }
 
 void Controller::PrintTree() {
-  for (const auto& toplevel : nodes_) {
+  for (const auto* toplevel : nodes_) {
     if (ShouldSkip(*toplevel))
       continue;
     std::cout << AsPrintableTree(*context_, *toplevel) << std::endl;

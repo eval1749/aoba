@@ -69,7 +69,7 @@ std::ostream& operator<<(std::ostream& ostream,
   const auto& type = *printable.type;
   ostream << "function";
   if (!type.type_parameters().empty()) {
-    auto delimiter = "<";
+    auto* delimiter = "<";
     for (const auto& type_parameter : type.type_parameters()) {
       ostream << delimiter << AsSourceCode(type_parameter.name());
       delimiter = ",";
@@ -77,7 +77,7 @@ std::ostream& operator<<(std::ostream& ostream,
     ostream << '>';
   }
   ostream << '(';
-  auto delimiter = "";
+  auto* delimiter = "";
   if (type.kind() == FunctionTypeKind::Constructor) {
     ostream << "new:" << AsPrintable(type.this_type());
     delimiter = ",";
@@ -215,7 +215,7 @@ std::ostream& operator<<(std::ostream& ostream,
                          const std::set<const Type*>& types) {
   auto* delimiter = "";
   ostream << '{';
-  for (const auto& type : types) {
+  for (const auto* type : types) {
     ostream << delimiter << type;
     delimiter = ",";
   }
@@ -226,7 +226,7 @@ std::ostream& operator<<(std::ostream& ostream,
                          const std::vector<const Type*>& types) {
   auto* delimiter = "";
   ostream << '[';
-  for (const auto& type : types) {
+  for (const auto* type : types) {
     ostream << delimiter << type;
     delimiter = ",";
   }

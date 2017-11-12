@@ -15,7 +15,7 @@ base::StringPiece ErrorStringOf(int error_code) {
       FOR_EACH_ANALYZER_ERROR_CODE(V)
 #undef V
   };
-  const auto analyzer_it =
+  const auto** analyzer_it =
       std::begin(kAnalyzerErrorTexts) + error_code - kAnalyzerErrorCodeBase - 1;
   if (analyzer_it >= std::begin(kAnalyzerErrorTexts) &&
       analyzer_it < std::end(kAnalyzerErrorTexts)) {

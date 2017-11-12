@@ -93,7 +93,7 @@ const Node& InclusiveDescendants::Iterator::operator*() const {
 
 InclusiveDescendants::Iterator& InclusiveDescendants::Iterator::operator++() {
   if (!stack_.top().first) {
-    DCHECK_EQ(stack_.top().second, 0);
+    DCHECK_EQ(stack_.top().second, 0u);
     stack_.pop();
     const auto* const start_node = owner_->start_node_;
     if (start_node->arity() == 0)

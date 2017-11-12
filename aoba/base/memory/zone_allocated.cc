@@ -11,9 +11,11 @@ namespace aoba {
 
 ZoneAllocated::ZoneAllocated() {}
 
+#if defined(COMPILER_MSVC) && !defined(__clang__)
 ZoneAllocated::~ZoneAllocated() {
   NOTREACHED();
 }
+#endif
 
 #if 0
 void ZoneAllocated::operator delete(void* pointer, Zone* zone) {

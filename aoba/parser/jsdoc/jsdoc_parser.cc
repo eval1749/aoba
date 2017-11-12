@@ -248,7 +248,7 @@ std::vector<const ast::Node*> JsDocParser::ParseNames() {
   }
   if (names.empty())
     AddError(JsDocErrorCode::ERROR_TAG_EXPECT_NAMES);
-  return std::move(names);
+  return names;
 }
 
 // Extract text until newline
@@ -297,7 +297,7 @@ const ast::Node& JsDocParser::ParseTag(const ast::Node& tag_name) {
       const auto& names = ParseNames();
       std::vector<const ast::Node*> type_names(names.size());
       type_names.resize(0);
-      for (const auto& name : names)
+      for (const auto* name : names)
         type_names.push_back(&node_factory().NewTypeName(*name));
       return NewTagWithVector(tag_name, type_names);
     }

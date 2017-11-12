@@ -44,7 +44,7 @@ const Type& TypeMap::TypeOf(const ast::Node& node) const {
   if (auto* present = TryTypeOf(node))
     return *present;
   NOTREACHED() << "No type for " << node;
-  return *static_cast<const Type*>(nullptr);
+  return *reinterpret_cast<const Type*>(1);
 }
 
 }  // namespace analyzer

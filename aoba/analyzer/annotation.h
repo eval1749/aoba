@@ -74,12 +74,11 @@ class Annotation final {
   Visibility visibility() const;
 
  private:
-  const ast::Node* document_ = nullptr;
-  Kind kind_ = Kind::None;
-
   // Tags
   const ast::Node* access_tag_ = nullptr;
   const ast::Node* const_tag_ = nullptr;
+
+  const ast::Node* document_ = nullptr;
 
   // Class can have at most one @extends tag and @interface can have multiple
   // @extends tags.
@@ -87,6 +86,7 @@ class Annotation final {
 
   const ast::Node* final_tag_ = nullptr;
   std::vector<const ast::Node*> implements_tags_;
+  Kind kind_ = Kind::None;
   const ast::Node* kind_tag_ = nullptr;
   const ast::Node* override_tag_ = nullptr;
   std::vector<const ast::Node*> parameter_tags_;

@@ -23,7 +23,7 @@ namespace {
 
 std::string ToStringFromVector(const std::vector<const ast::Node*>& tokens) {
   std::ostringstream ostream;
-  for (const auto& token : tokens) {
+  for (const auto* token : tokens) {
     ostream << token << std::endl;
   }
   return ostream.str();

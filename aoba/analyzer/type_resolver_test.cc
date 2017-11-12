@@ -89,7 +89,7 @@ std::string TypeResolverTest::RunOn(base::StringPiece script_text) {
       ostream << "|   +--" << base_class << std::endl;
   }
   // Dump errors
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }

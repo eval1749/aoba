@@ -77,29 +77,6 @@ struct Printable {
   const T* thing;
 };
 
-const ast::Node* ValueNameOf(const Value& value) {
-  const auto& node = value.node();
-  if (value.Is<Class>()) {
-    const auto& name = node.child_at(0);
-    return name.Is<ast::Name>() ? &name : nullptr;
-  }
-  if (value.Is<Function>()) {
-    if (node.Is<ast::Function>()) {
-      const auto& name = ast::Function::NameOf(node);
-      return name.Is<ast::Name>() ? &name : nullptr;
-    }
-    if (node.Is<ast::Method>()) {
-      return &ast::Method::NameOf(node);
-    }
-    return nullptr;
-  }
-  if (value.Is<Property>())
-    return &node;
-  if (value.Is<Variable>())
-    return &node;
-  return nullptr;
-}
-
 std::ostream& operator<<(std::ostream& ostream,
                          const Printable<Value>& printable) {
   const auto& value = *printable.thing;

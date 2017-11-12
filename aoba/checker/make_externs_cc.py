@@ -62,7 +62,7 @@ def generate_cc_file(module_file_name, module_name, sources):
 
     lines += [
         '  };',
-        '  return ExternsModule{"%s", externs_files};' % module_name,
+        '  return ExternsModule("%s", externs_files);' % module_name,
         '}',
         '',
         '}  // namespace aoba'

@@ -38,7 +38,7 @@ std::string RegExpLexerTest::Scan(base::StringPiece script_text,
   std::ostringstream ostream;
   while (lexer.CanPeekToken())
     ostream << AsPrintableTree(lexer.ConsumeToken()) << std::endl;
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }
@@ -234,7 +234,7 @@ TEST_F(RegExpLexerTest, RepeatLazy) {
 
   EXPECT_EQ(
       "LiteralRegExp |a|\n"
-      "RegExpRepeat<??> |??|\n",
+      "RegExpRepeat<\x3F?> |??|\n",
       Scan("a??"));
 
   EXPECT_EQ(
@@ -266,7 +266,7 @@ TEST_F(RegExpLexerTest, RepeatLazy) {
 
   EXPECT_EQ(
       "LiteralRegExp |a|\n"
-      "RegExpRepeat<??> |{0,1}?|\n",
+      "RegExpRepeat<\x3F?> |{0,1}?|\n",
       Scan("a{0,1}?"))
       << "'?' == '{0,1}'";
 

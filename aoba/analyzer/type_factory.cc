@@ -43,7 +43,7 @@ std::vector<TypeKey> ComputeUnionTypeKey(
     const std::vector<const Type*>& passed_members) {
   std::set<TypeKey> key_set;
   // TODO(eval1749): We should omit subtype members.
-  for (const auto& member : passed_members) {
+  for (const auto* member : passed_members) {
     if (member->Is<AnyType>())
       return std::vector<TypeKey>{TypeKey{member}};
     if (member->Is<NilType>())
@@ -212,7 +212,7 @@ const Type& TypeFactory::NewRecordType(
     const std::vector<const LabeledType*>& passed_members) {
 #if DCHECK_IS_ON()
   std::set<ast::TokenKind> names;
-  for (const auto& type : passed_members) {
+  for (const auto* type : passed_members) {
     const auto& result = names.emplace(ast::Name::KindOf(type->name()));
     DCHECK(result.second) << *type;
   }

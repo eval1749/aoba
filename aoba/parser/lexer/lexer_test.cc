@@ -141,7 +141,7 @@ std::string LexerTest::NewStringLiteral(const std::vector<base::char16> data) {
 std::string LexerTest::Parse(const ParserOptions& options, LexerMode mode) {
   Lexer lexer(&context(), source_code().range(), options);
   std::ostringstream ostream;
-  auto delimiter = "";
+  auto* delimiter = "";
   while (lexer.CanPeekToken()) {
     ostream << delimiter;
     delimiter = " ";

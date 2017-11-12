@@ -292,7 +292,7 @@ class Property final : public ValueHolder {
   DECLARE_CONCRETE_ANALYZE_VALUE(Property, ValueHolder)
 
  public:
-  ~Property();
+  ~Property() final;
 
   const ast::Node& key() const { return node(); }
   Visibility visibility() const { return visibility_; }

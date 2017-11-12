@@ -45,7 +45,7 @@ const Type& TypeFactory::NewTupleTypeFromVector(
 const Type& TypeFactory::NewUnionType(
     const std::vector<const Type*>& passed_members) {
   std::set<const Type*> members;
-  for (const auto& member : passed_members) {
+  for (const auto* member : passed_members) {
     if (member->Is<NilType>())
       continue;
     if (member->Is<UnionType>()) {

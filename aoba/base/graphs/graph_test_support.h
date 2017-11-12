@@ -57,6 +57,10 @@ class Block : public Graph<Function, Block>::GraphNodeBase,
 //
 struct PrintableBlocks {
   std::vector<Block*> blocks;
+
+  PrintableBlocks(const PrintableBlocks&);
+  PrintableBlocks();
+  ~PrintableBlocks();
 };
 
 PrintableBlocks Printable(const ZoneUnorderedSet<Block*>& blocks);

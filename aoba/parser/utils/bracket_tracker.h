@@ -58,8 +58,8 @@ class BracketTracker final {
 
   const std::vector<Description> descriptions_;
   ErrorSink& error_sink_;
-  const SourceCodeRange& source_code_range_;
   const std::pair<ast::TokenKind, ast::TokenKind> min_max_;
+  const SourceCodeRange& source_code_range_;
   std::stack<std::pair<const ast::Node*, const Description*>> stack_;
 
   DISALLOW_COPY_AND_ASSIGN(BracketTracker);

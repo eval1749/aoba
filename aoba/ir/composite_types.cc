@@ -48,7 +48,7 @@ UnionType::UnionType(Zone* zone, const std::vector<const Type*>& members)
     : members_(zone, members) {
   DCHECK_GE(members_.size(), 2u);
 #if DCHECK_IS_ON()
-  for (const auto member : members_) {
+  for (const auto* member : members_) {
     DCHECK(!member->Is<UnionType>());
     DCHECK(!member->Is<NilType>());
   }

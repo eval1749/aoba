@@ -19,7 +19,7 @@ ParserContext::Builder::~Builder() = default;
 std::unique_ptr<ParserContext> ParserContext::Builder::Build() const {
   DCHECK(error_sink_);
   DCHECK(node_factory_);
-  return std::move(std::unique_ptr<ParserContext>(new ParserContext(*this)));
+  return std::unique_ptr<ParserContext>(new ParserContext(*this));
 }
 
 ParserContext::Builder& ParserContext::Builder::set_error_sink(

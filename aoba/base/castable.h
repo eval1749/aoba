@@ -76,6 +76,26 @@ class Castable {
            base_name::IsClassOf(other_name);                              \
   }
 
+// For clang
+#if 0
+#define DECLARE_CASTABLE_CLASS(this_name, base_name)            \
+ public:                                                        \
+  static const char* static_class_name() { return #this_name; } \
+                                                                \
+  const char* class_name() const override;                      \
+                                                                \
+ protected:                                                     \
+  bool IsClassOf(const char* other_name) const override;
+
+#define DEFINE_CASTABLE_CLASS(this_name, base_name)                         \
+  const char* this_name::class_name() const { return static_class_name(); } \
+                                                                            \
+  bool this_name::IsClassOf(const char* other_name) const {                 \
+    return static_class_name() == other_name ||                             \
+           base_name::IsClassOf(other_name);                                \
+  }
+#endif
+
 }  // namespace aoba
 
 #endif  // AOBA_BASE_CASTABLE_H_

@@ -30,8 +30,7 @@ AnalyzerSettings::Builder& AnalyzerSettings::Builder::set_zone(Zone* zone) {
 }
 
 std::unique_ptr<AnalyzerSettings> AnalyzerSettings::Builder::Build() {
-  return std::move(
-      std::unique_ptr<AnalyzerSettings>(new AnalyzerSettings(*this)));
+  return std::unique_ptr<AnalyzerSettings>(new AnalyzerSettings(*this));
 }
 
 }  // namespace aoba

@@ -132,7 +132,7 @@ const Syntax& SyntaxFactory::NewSyntax(Parameters... parameters) {
                 "should be derived from class Syntax.");
   const auto& key =
       std::make_tuple(SyntaxClass::kSyntaxCode, Normalize(parameters)...);
-  if (const auto& present = cache_->Find(key))
+  if (const auto* present = cache_->Find(key))
     return *present;
   const auto& new_op = *new (&zone_) SyntaxClass(parameters...);
   DCHECK_EQ(new_op.format().number_of_parameters(), sizeof...(Parameters));
@@ -146,7 +146,7 @@ const Syntax& SyntaxFactory::NewSyntax() {
   if (const auto* present = cache_->TryGet(SyntaxClass::kSyntaxCode))
     return *present;
   const auto& new_op = *new (&zone_) SyntaxClass();
-  DCHECK_EQ(new_op.format().number_of_parameters(), 0);
+  DCHECK_EQ(new_op.format().number_of_parameters(), 0u);
   return cache_->Set(new_op);
 }
 

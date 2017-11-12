@@ -45,7 +45,7 @@ std::string NameResolverTest::RunOn(base::StringPiece script_text) {
   }
   std::ostringstream ostream;
   ostream << AsPrintableTree(*context, module) << std::endl;
-  for (const auto& error : error_sink().errors())
+  for (const auto* error : error_sink().errors())
     ostream << error << std::endl;
   return ostream.str();
 }
