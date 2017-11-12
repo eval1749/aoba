@@ -18,7 +18,7 @@ for %%x in (%1 %2 %3 %4 %5 %6 %7 %8 %9) do (
 if "%targets%"=="" set targets=aoba aoba_tests
 
 : set/a num_jobs=NUMBER_OF_PROCESSORS / 2
-set/a num_jobs=NUMBER_OF_PROCESSORS
+if "%num_jobs%"=="" set/a num_jobs=NUMBER_OF_PROCESSORS
 
 echo %config% %targets% num_jobs=%num_jobs%
 set start=%TIME%
